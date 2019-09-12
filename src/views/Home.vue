@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-container>
-            <aside-menu></aside-menu>
-            <div style="width: calc(100% - 250px);background-color: #f4f6f7">
+            <aside-menu @openmenus="openMenus" :asideMenu="asideMenu"></aside-menu>
+            <div style="width: calc(100% - 220px);background-color: #f4f6f7">
                 <div class="my-header">
                     <div style="width: 300px;">
                         <el-input
@@ -23,7 +23,7 @@
                                 <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
-                        <el-avatar :size="50" :shape="circle"
+                        <el-avatar :size="50" shape="circle"
                                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                         <div class="right-exit"><i class="el-icon-switch-button"></i></div>
 
@@ -46,6 +46,7 @@
     // @ is an alias to /src
     import HeadMenu from "../components/HeadMenu.vue"
     import AsideMenu from "../components/AsideMenu.vue"
+    import PubSub from 'pubsub-js'
     // import MyMain from "../components/MyMain.vue"
 
     export default {
@@ -55,9 +56,130 @@
         },
         data() {
             return {
-                appSeach: ""
+                appSeach: "",
+                asideMenu:[
+                    {
+                        "id": "",
+                        "title": "行政管理",
+                        "img": "el-icon-postcard",
+                        "url": "",
+                        "display": false,
+                        "chMenus": [
+                            {
+                                "id": "",
+                                "title": "车辆管理",
+                                "img": "el-icon-truck",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "办公用品",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "资产管理",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "证照借阅",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "档案管理",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "图书管理",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                        ]
+                    },
+                    {
+                        "id": "",
+                        "title": "会议管理",
+                        "img": "el-icon-orange",
+                        "url": "",
+                        "display": false,
+                        "chMenus": [
+                            {
+                                "id": "",
+                                "title": "会议日历",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "会议预约",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "会议纪要",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                        ]
+                    },
+                    {
+                        "id": "",
+                        "title": "人事管理",
+                        "img": "el-icon-user",
+                        "url": "",
+                        "display": false,
+                        "chMenus": [
+                            {
+                                "id": "",
+                                "title": "职工信息",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "请假考勤",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                            {
+                                "id": "",
+                                "title": "绩效考核",
+                                "img": "",
+                                "url": "",
+                                "display": false,
+                            },
+                        ]
+                    },
+                ],
             }
-        }
+        },
+        mounted(){
+            PubSub.subscribe("openMenus",(msg, _title) =>{
+                this.asideMenu = this.$store.state.Menus.filter(a => a.title==_title)[0].chMenus;
+            })
+        },
+        methods:{
+
+        },
     }
 </script>
 <style lang="less">
