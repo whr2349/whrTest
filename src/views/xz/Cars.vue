@@ -1,12 +1,12 @@
 <template>
     <div>
-        nihao
+        车辆管理
     </div>
 </template>
 
 <script>
     export default {
-        name: "Dashboard"
+        name: "Cars"
     }
 </script>
 

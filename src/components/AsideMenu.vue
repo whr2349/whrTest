@@ -7,7 +7,7 @@
             <el-menu :default-openeds="[0]">
                 <el-submenu :index="index" v-for="(_asideMenu , index) in asideMenu" :key="index">
                     <template slot="title"><i :class="_asideMenu.img"></i>{{_asideMenu.title}}</template>
-                    <el-menu-item :index="index+'-'+_index" v-for="(__asideMenu , _index) in _asideMenu.chMenus" :key="_index">{{__asideMenu.title}}</el-menu-item>
+                    <el-menu-item :index="index+'-'+_index" v-for="(__asideMenu , _index) in _asideMenu.chMenus" :key="_index" @click="goindex(__asideMenu.s_url)">{{__asideMenu.title}}</el-menu-item>
                 </el-submenu>
             </el-menu>
         </el-scrollbar>
@@ -16,13 +16,17 @@
 </template>
 
 <script>
+    import PubSub from "pubsub-js"
     export default {
         name: "asideMenu",
         props:{
             asideMenu:Array,
         },
-        data(){
-
+        methods:{
+            goindex(surl){
+                debugger;
+                PubSub.publish("gotoView",surl);
+            }
         }
     }
 </script>

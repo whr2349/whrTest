@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import OaDashboard from './views/oa/Dashboard.vue'
+import Cars from './views/xz/Cars.vue'
 
 Vue.use(Router)
 
@@ -10,6 +11,11 @@ export default new Router({
       path: '/',
       name: 'OaDashboard',
       component: OaDashboard
+    },
+    {
+      path: '/xz/cars',
+      name: 'Cars',
+      component: Cars
     },
     // {
     //   path: '/about',

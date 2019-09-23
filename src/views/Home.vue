@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-container>
-            <aside-menu @openmenus="openMenus" :asideMenu="asideMenu"></aside-menu>
+            <aside-menu :asideMenu="asideMenu"></aside-menu>
             <div style="width: calc(100% - 220px);background-color: #f4f6f7">
                 <div class="my-header">
                     <div style="width: 300px;">
@@ -57,125 +57,18 @@
         data() {
             return {
                 appSeach: "",
-                asideMenu:[
-                    {
-                        "id": "",
-                        "title": "行政管理",
-                        "img": "el-icon-postcard",
-                        "url": "",
-                        "display": false,
-                        "chMenus": [
-                            {
-                                "id": "",
-                                "title": "车辆管理",
-                                "img": "el-icon-truck",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "办公用品",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "资产管理",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "证照借阅",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "档案管理",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "图书管理",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                        ]
-                    },
-                    {
-                        "id": "",
-                        "title": "会议管理",
-                        "img": "el-icon-orange",
-                        "url": "",
-                        "display": false,
-                        "chMenus": [
-                            {
-                                "id": "",
-                                "title": "会议日历",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "会议预约",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "会议纪要",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                        ]
-                    },
-                    {
-                        "id": "",
-                        "title": "人事管理",
-                        "img": "el-icon-user",
-                        "url": "",
-                        "display": false,
-                        "chMenus": [
-                            {
-                                "id": "",
-                                "title": "职工信息",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "请假考勤",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                            {
-                                "id": "",
-                                "title": "绩效考核",
-                                "img": "",
-                                "url": "",
-                                "display": false,
-                            },
-                        ]
-                    },
-                ],
+                asideMenu:[],
             }
         },
         mounted(){
             PubSub.subscribe("openMenus",(msg, _title) =>{
                 this.asideMenu = this.$store.state.Menus.filter(a => a.title==_title)[0].chMenus;
-            })
+            });
+            PubSub.subscribe("gotoView",(msg, _url) =>{
+                debugger;
+                this.$router.push(_url)
+            });
+            this.asideMenu = this.$store.state.Menus.filter(a => a.title=="协同办公")[0].chMenus;
         },
         methods:{
 
