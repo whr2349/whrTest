@@ -1,5 +1,5 @@
 <template>
-    <div>oa界面1234567</div>
+    <div>oa界面123456</div>
 </template>
 
 <script>
